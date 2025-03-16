@@ -37,33 +37,45 @@ class Controller extends BaseController {
       next(error);
     }
   }
-  updateNote = async (req: CustomRequest, res: Response, next: NextFunction) => {
-    const userId = req?.id
-    if (!userId) {
-      return next(CustomError.unauthorized());
-    }
+  getSingleNote = async (req: CustomRequest, res: Response, next: NextFunction) => {
     try {
       this.sendResponse(res, {
-        statusCode: 201,
+        statusCode: 200,
         success: true,
-        message: "Updated note successfully",
-        data: await noteService.updateNote({updateNote: req.body, userId, noteId: req.params.id})
+        message: "Get single note successfully",
+        data: await noteService.getSingleNote(req.params.id)
       });
     } catch (error) {
       next(error);
     }
   }
+  // updateNote = async (req: CustomRequest, res: Response, next: NextFunction) => {
+  //   const userId = req?.id
+  //   if (!userId) {
+  //     return next(CustomError.unauthorized());
+  //   }
+  //   try {
+  //     this.sendResponse(res, {
+  //       statusCode: 201,
+  //       success: true,
+  //       message: "Updated note successfully",
+  //       data: await noteService.updateNote({updateNote: req.body, userId, noteId: req.params.id})
+  //     });
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
   deleteNote = async (req: CustomRequest, res: Response, next: NextFunction) => {
     const userId = req?.id
     if (!userId) {
       return next(CustomError.unauthorized());
     }
     try {
+      await noteService.deleteNote({userId, noteId: req.params.id})
       this.sendResponse(res, {
-        statusCode: 201,
+        statusCode: 200,
         success: true,
         message: "Deleted note successfully",
-        data: await noteService.deleteNote({userId, noteId: req.params.id})
       });
     } catch (error) {
       next(error);
