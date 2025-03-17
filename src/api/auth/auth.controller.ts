@@ -3,6 +3,7 @@ import authService from "./auth.services";
 import BaseController from "../../lib/BaseController";
 import CustomError from "../../lib/Error";
 import { CustomRequest } from "../notes/notes.controller";
+import { config } from "../../../config/env";
 
 class AuthController extends BaseController {
   profile = async (req: CustomRequest, res: Response, next: NextFunction) => {
@@ -31,7 +32,14 @@ class AuthController extends BaseController {
       if (createdUser instanceof CustomError) {
         next(createdUser);
       } else {
-        res.cookie("refreshToken", createdUser.refreshToken, { httpOnly: true, secure: true });
+        res.cookie("refreshToken", createdUser.refreshToken, {
+          httpOnly: true, 
+          secure: config.node_env.production ? true : false,
+          sameSite: "none",
+          path: "/",
+          domain: config.cors_origin_domain[3],
+        });
+        
         this.sendResponse(res, {
           statusCode: 201,
           success: true,
@@ -54,7 +62,14 @@ class AuthController extends BaseController {
       if (result instanceof CustomError) {
         next(result);
       } else {
-        res.cookie("refreshToken", result.refreshToken, { httpOnly: true, secure: true });
+        res.cookie("refreshToken", result.refreshToken, {
+          httpOnly: true, 
+          secure: config.node_env.production ? true : false,
+          sameSite: "none",
+          path: "/",
+          domain: config.cors_origin_domain[3],
+        });
+        
         this.sendResponse(res, {
           statusCode: 200,
           success: true,
@@ -80,7 +95,14 @@ class AuthController extends BaseController {
       if (result instanceof CustomError) {
         next(result);
       } else {
-        res.cookie("refreshToken", result.newRefreshToken, { httpOnly: true, secure: true });
+        res.cookie("refreshToken", result.newRefreshToken, {
+          httpOnly: true, 
+          secure: config.node_env.production ? true : false,
+          sameSite: "none",
+          path: "/",
+          domain: config.cors_origin_domain[3],
+        });
+        
         this.sendResponse(res, {
           statusCode: 200,
           success: true,
