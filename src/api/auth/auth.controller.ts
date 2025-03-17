@@ -124,7 +124,13 @@ class AuthController extends BaseController {
     }
     try {
       await authService.logout(incomingRefreshToken);
-      res.clearCookie("refreshToken", { httpOnly: true, secure: true });
+      res.clearCookie("refreshToken", {
+        httpOnly: true, 
+        secure: config.node_env.production ? true : false,
+        sameSite: "none",
+        path: "/",
+        domain: config.cors_origin_domain[3],
+      });
       this.sendResponse(res, {
         statusCode: 200,
         success: true,
