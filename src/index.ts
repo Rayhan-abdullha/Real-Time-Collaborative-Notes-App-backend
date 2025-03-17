@@ -7,10 +7,9 @@ import Note from './api/notes/notes.schema';
 const httpServer = http.createServer(app);
 connectDB()
 
-// export const io = new Server(httpServer, { cors: { origin: "*" } });
 export const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:3000", // Adjust according to your frontend
+    origin: [...config.cors_origin_domain as string[]],
     credentials: true,
   },
 });
