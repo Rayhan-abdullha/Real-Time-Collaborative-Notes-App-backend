@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
+import { config } from "./env";
 
 const connectDB = async () => {
   try {
-    await mongoose.connect("mongodb+srv://rayhan:6apbpSfr83NjzM1T@cluster0.lcnnv.mongodb.net/notes?retryWrites=true&w=majority");
+    await mongoose.connect(config.url as string);
     console.log("MongoDB Connected");
   } catch (error) {
     console.error("MongoDB Connection Failed:", error);

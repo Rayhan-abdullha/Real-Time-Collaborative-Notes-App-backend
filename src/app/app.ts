@@ -6,6 +6,7 @@ import swaggerUI from 'swagger-ui-express';
 import YML from 'yamljs';
 import { allRoutes } from '../routes/router';
 import { middleware } from '../middleware';
+import { config } from '../../config/env';
 
 const app: Application = express();
 app.use(express.json());
@@ -14,7 +15,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: ['http://localhost:4000', 'http://localhost:3000', 'http://localhost:3002'],
+    origin: [...config.cors_origin_domain as string[]],
     optionsSuccessStatus: 200,
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']

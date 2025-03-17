@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import User, { IUser } from "./auth.schema";
 import CustomError from './../../lib/Error';
 import { config } from "../../../config/env";
+import { Algorithm } from 'jsonwebtoken';
 
 class AuthService {
   registerUser = async(data: IUser) => {
@@ -79,15 +80,13 @@ class AuthService {
   generateAccessToken(user: IUser) {
     const payload = { userId: user._id, email: user.email, name: user.name };
     const secret = config.secret_access_token as string;
-    const expiresIn = "2m";
-    return jwt.sign(payload, secret, { algorithm: 'HS256', expiresIn});
+    return jwt.sign(payload, secret, { algorithm: config.jwt_algorithm as Algorithm, expiresIn: config.access_token_expires_in });
   }
 
   generateRefreshToken(user: IUser) {
     const payload = { userId: user._id, email: user.email, name: user.name };
     const secret = config.secret_refresh_token as string;
-    const expiresIn = "7d";
-    return jwt.sign(payload, secret, { algorithm: 'HS256', expiresIn });
+    return jwt.sign(payload, secret, { algorithm: config.jwt_algorithm as Algorithm, expiresIn: config.refresh_token_expires_in});
   }
 }
 
