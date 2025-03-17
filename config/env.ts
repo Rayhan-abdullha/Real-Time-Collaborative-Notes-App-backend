@@ -10,5 +10,5 @@ export const config = {
     access_token_expires_in: process.env.ACCESS_TOKEN_EXPIRES_IN,
     refresh_token_expires_in: process.env.REFRESH_TOKEN_EXPIRES_IN,
     jwt_algorithm: process.env.JWT_ALGORITHM,
-    cors_origin_domain: [process.env.CORS_ORIGIN_DOMAIN, process.env.CORS_ORIGIN_DOMAIN1],
+    cors_origin_domain: [process.env.CORS_ORIGIN_DOMAIN, process.env.CORS_ORIGIN_DOMAIN1, process.env.CORS_ORIGIN_DOMAIN2],
 }
