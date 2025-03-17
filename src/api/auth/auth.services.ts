@@ -56,7 +56,6 @@ class AuthService {
 
       const newAccessToken = this.generateAccessToken(user);
       const newRefreshToken = this.generateRefreshToken(user);
-
       user.refreshToken = newRefreshToken;
       await user.save();
       return { accessToken: newAccessToken, newRefreshToken };
