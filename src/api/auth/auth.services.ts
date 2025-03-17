@@ -6,7 +6,7 @@ import { config } from "../../../config/env";
 import { Algorithm } from 'jsonwebtoken';
 
 class AuthService {
-  registerUser = async(data: IUser) => {
+  async registerUser (data: IUser) {
     const { name, email, password } = data;
     const userExists = await User.findOne({ email });
     if (userExists) {
@@ -29,7 +29,7 @@ class AuthService {
     }
   };
 
-  loginUser = async (data: IUser) => {
+  async loginUser (data: IUser) {
     const { email, password } = data
     const user = await User.findOne({ email });
     if (!user) throw CustomError.badRequest("User not found");
@@ -75,6 +75,12 @@ class AuthService {
     if (!user) throw CustomError.badRequest("User not found");
     return user;
   }
+
+  async getSingleUser (userId: string) {
+    const user = await User.findById(userId);
+    if (!user) throw CustomError.badRequest("User not found");
+    return user;
+  } 
 
   generateAccessToken(user: IUser) {
     const payload = { userId: user._id, email: user.email, name: user.name };

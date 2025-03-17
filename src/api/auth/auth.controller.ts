@@ -140,6 +140,23 @@ class AuthController extends BaseController {
       next(error);
     }
   }
+  singleUser = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const result = await authService.getSingleUser(req.params.id);
+      if (result instanceof CustomError) {
+        next(result);
+      } else {
+        this.sendResponse(res, {
+          statusCode: 200,
+          success: true,
+          message: "User fetched successfully",
+          data: result
+        });
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export const authController = new AuthController();

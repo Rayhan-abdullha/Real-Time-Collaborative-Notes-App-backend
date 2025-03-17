@@ -2,15 +2,15 @@ import CustomError from "../../lib/Error";
 import Note, { INote } from "./notes.schema";
 
 class AuthService {
-  createNote = async (note: INote, userId: string) => {
+  async createNote (note: INote, userId: string) {
     const newNote = await Note.create({ ...note, author: userId });
     return newNote
   };
-  getNotes = async () => {
+  async getNotes () {
     const notes = await Note.find();
     return notes
   };
-  getSingleNote = async (noteId: string) => {
+  async getSingleNote (noteId: string) {
     const note = await Note.findById(noteId);
     return note
   }
@@ -25,7 +25,7 @@ class AuthService {
   //   if (!note) return CustomError.notFound("Note not found");
   //   return note
   // };
-  deleteNote = async ({ userId, noteId }: { userId: string, noteId: string }) => {
+  async deleteNote ({ userId, noteId }: { userId: string, noteId: string }) {
     const note = await Note.findOne({ _id: noteId, author: userId });
     if (!note) throw CustomError.unauthorized("You are not authorized to delete this note");
     
