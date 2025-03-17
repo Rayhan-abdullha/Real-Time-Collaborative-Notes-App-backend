@@ -27,19 +27,14 @@ Build a real-time collaborative notes app where multiple users can create, edit,
    npm install
 
    # Start the server
-   yarn run dev
+   npm run dev
 ```
 
 - .env
 
 ```js
-   DB_NAME = your db name
-   DB_URL = your db url
+   See .env.example file
 ```
-
-# Usage
-
-Describe how to use your API, including any setup or configuration required. Provide examples of common use cases and any relevant code snippets.
 
 # Authentication
 
@@ -56,7 +51,7 @@ Describe how to use your API, including any setup or configuration required. Pro
   - Logout (invalidates refresh token)
 - Store the refresh token securely in an HTTP-only cookie.
 
-# Backend (Express.js, Node.js, MongoDB, Socket.io)
+## Backend (Express.js, Node.js, MongoDB, Socket.io)
 
 - Set up an Express.js server with Socket.io for real-time updates.
 - Used MongoDB to store:
@@ -197,7 +192,7 @@ How errors are handled in the API. Below are common error responses:
 
 # Testing
 
-N/A.
+Everything is working fine.
 
 # Deployment
 
